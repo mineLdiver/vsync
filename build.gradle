@@ -78,17 +78,17 @@ dependencies {
 	modImplementation "net.modificationstation:StationAPI:${project.stapi_version}"
 
 	// Optional, but convenient mods for mod creators and users alike.
-//	modImplementation("net.glasslauncher.mods:ModMenu:${project.modmenu_version}") {
-//		transitive false
-//	}
-//
-//	modImplementation("net.glasslauncher.mods:glass-networking:${project.glass_networking_version}") {
-//		transitive false
-//	}
-//
-//	modImplementation("net.glasslauncher.mods:GlassConfigAPI:${project.gcapi_version}") {
-//		transitive false
-//	}
+	modImplementation("net.glasslauncher.mods:ModMenu:${project.modmenu_version}") {
+		transitive false
+	}
+
+	modImplementation("net.glasslauncher.mods:glass-networking:${project.glass_networking_version}") {
+		transitive false
+	}
+
+	modImplementation("net.glasslauncher.mods:GlassConfigAPI:${project.gcapi_version}") {
+		transitive false
+	}
 
 //	modImplementation("net.glasslauncher.mods:AlwaysMoreItems:${project.alwaysmoreitems_version}") {
 //		transitive false
