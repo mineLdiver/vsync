@@ -1,9 +1,9 @@
 package net.mine_diver.smoothbeta.mixin.client.multidraw;
 
 import net.mine_diver.smoothbeta.client.render.*;
+import net.minecraft.class_472;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.chunk.ChunkBuilder;
-import net.minecraft.client.render.world.ChunkRenderer;
 import net.minecraft.client.util.GlAllocationUtils;
 import net.minecraft.entity.LivingEntity;
 import org.lwjgl.opengl.GL11;
@@ -24,7 +24,7 @@ import java.nio.FloatBuffer;
 
 @Mixin(WorldRenderer.class)
 abstract class WorldRendererMixin implements SmoothWorldRenderer {
-    @Shadow private ChunkRenderer[] chunkRenderers;
+    @Shadow private class_472[] field_1794;
 
     @Unique
     private VboPool smoothbeta_vboPool;
@@ -36,7 +36,7 @@ abstract class WorldRendererMixin implements SmoothWorldRenderer {
     }
 
     @Inject(
-            method = "reload",
+            method = "method_1537()V",
             at = @At("HEAD")
     )
     private void smoothbeta_resetVboPool(CallbackInfo ci) {
@@ -49,34 +49,34 @@ abstract class WorldRendererMixin implements SmoothWorldRenderer {
             method = "<init>",
             at = @At(
                     value = "NEW",
-                    target = "()Lnet/minecraft/client/render/world/ChunkRenderer;"
+                    target = "()Lnet/minecraft/class_472;"
             )
     )
-    private ChunkRenderer smoothbeta_injectRenderRegion() {
+    private class_472 smoothbeta_injectRenderRegion() {
         return new RenderRegion((WorldRenderer) (Object) this);
     }
 
     @Inject(
-            method = "renderChunks",
+            method = "method_1542(IIID)I",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/render/world/ChunkRenderer;addGlList(I)V",
+                    target = "Lnet/minecraft/class_472;method_1910(I)V",
                     shift = At.Shift.BEFORE
             ),
             locals = LocalCapture.CAPTURE_FAILHARD
     )
     private void smoothbeta_addBufferToRegion(int j, int k, int d, double par4, CallbackInfoReturnable<Integer> cir, int var6, LivingEntity var7, double var8, double var10, double var12, int var14, int var15, ChunkBuilder var16, int var17) {
-        ((RenderRegion) this.chunkRenderers[var17]).addBuffer(((SmoothChunkRenderer) var16).smoothbeta_getBuffer(d));
+        ((RenderRegion) this.field_1794[var17]).addBuffer(((SmoothChunkRenderer) var16).smoothbeta_getBuffer(d));
     }
 
     @Redirect(
-            method = "renderChunks",
+            method = "method_1542(IIID)I",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/render/world/ChunkRenderer;addGlList(I)V"
+                    target = "Lnet/minecraft/class_472;method_1910(I)V"
             )
     )
-    private void smoothbeta_stopCallingRenderList(ChunkRenderer instance, int i) {}
+    private void smoothbeta_stopCallingRenderList(class_472 instance, int i) {}
 
     @Unique
     private final FloatBuffer
@@ -84,7 +84,7 @@ abstract class WorldRendererMixin implements SmoothWorldRenderer {
             smoothbeta_projectionMatrix = GlAllocationUtils.allocateFloatBuffer(16);
 
     @Inject(
-            method = "renderLastChunks",
+            method = "method_1540(ID)V",
             at = @At("HEAD")
     )
     public void smoothbeta_beforeRenderRegion(int d, double par2, CallbackInfo ci) {
@@ -109,7 +109,7 @@ abstract class WorldRendererMixin implements SmoothWorldRenderer {
     }
 
     @Inject(
-            method = "renderLastChunks",
+            method = "method_1540(ID)V",
             at = @At("RETURN")
     )
     public void smoothbeta_afterRenderRegion(int d, double par2, CallbackInfo ci) {

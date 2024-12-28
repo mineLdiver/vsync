@@ -15,17 +15,17 @@ import java.util.Map;
 @Mixin(BlockEntityRenderDispatcher.class)
 class MixinTileEntityRenderDispatcher {
 
-    @Shadow private Map<Class<? extends BlockEntity>, BlockEntityRenderer> renderers;
+    @Shadow private Map<Class<? extends BlockEntity>, BlockEntityRenderer> field_1564;
 
     @Redirect(
             method = "<init>()V",
             at = @At(
                     value = "FIELD",
-                    target = "Lnet/minecraft/client/render/block/entity/BlockEntityRenderDispatcher;renderers:Ljava/util/Map;",
+                    target = "Lnet/minecraft/client/render/block/entity/BlockEntityRenderDispatcher;field_1564:Ljava/util/Map;",
                     opcode = Opcodes.PUTFIELD
             )
     )
     private void overrideMap(BlockEntityRenderDispatcher instance, Map<Class<? extends BlockEntity>, BlockEntityRenderer> value) {
-        renderers = new IdentityHashMap<>();
+        field_1564 = new IdentityHashMap<>();
     }
 }

@@ -10,6 +10,7 @@ import org.lwjgl.opengl.*;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
+@SuppressWarnings("removal")
 public class VboPool implements AutoCloseable {
     @SuppressWarnings("deprecation")
     private static final MinecraftAccessor mc = ((MinecraftAccessor) FabricLoader.getInstance().getGameInstance());
