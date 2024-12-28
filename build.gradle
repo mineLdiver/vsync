@@ -1,5 +1,6 @@
 plugins {
-	id 'babric-loom' version '1.4.2'
+	id 'fabric-loom' version '1.8.12'
+	id 'babric-loom-extension' version '1.8.9'
 	id 'maven-publish'
 }
 
@@ -11,7 +12,6 @@ version = project.mod_version
 group = project.maven_group
 
 loom {
-	gluedMinecraftJar()
 	customMinecraftManifest.set("https://babric.github.io/manifest-polyfill/${minecraft_version}.json")
 	intermediaryUrl.set("https://maven.glass-launcher.net/babric/babric/intermediary/%1\$s/intermediary-%1\$s-v2.jar")
 }
@@ -48,6 +48,7 @@ repositories {
 		name = 'Jitpack'
 		url = 'https://jitpack.io'
 	}
+	// Used for another StationAPI dependency
 	exclusiveContent {
 		forRepository {
 			maven {
@@ -70,19 +71,28 @@ dependencies {
 
 	implementation "org.slf4j:slf4j-api:1.8.0-beta4"
 	implementation 'org.apache.logging.log4j:log4j-slf4j18-impl:2.17.2'
+	implementation "blue.endless:jankson:1.2.1"
+	implementation(include("me.carleslc:Simple-Yaml:1.8.4") as Dependency)
+	implementation("io.github.llamalad7:mixinextras-fabric:${project.properties["mixinextras_version"]}")
 
 	modImplementation "net.modificationstation:StationAPI:${project.stapi_version}"
 
 	// Optional, but convenient mods for mod creators and users alike.
-	modImplementation("com.github.calmilamsy:ModMenu:${project.modmenu_version}") {
+	modImplementation("net.glasslauncher.mods:ModMenu:${project.modmenu_version}") {
 		transitive false
 	}
-//	modImplementation("net.glasslauncher.mods:GlassConfigAPI:${project.gcapi_version}") {
-//		transitive false
-//	}
-//	modImplementation("net.glasslauncher:HowManyItems-Fabric-Unofficial:${project.howmanyitems_version}") {
-//		transitive false
-//	}
+
+	modImplementation("net.glasslauncher.mods:glass-networking:${project.glass_networking_version}") {
+		transitive false
+	}
+
+	modImplementation("net.glasslauncher.mods:GlassConfigAPI:${project.gcapi_version}") {
+		transitive false
+	}
+
+	modImplementation("net.glasslauncher.mods:AlwaysMoreItems:${project.alwaysmoreitems_version}") {
+		transitive false
+	}
 }
 
 processResources {

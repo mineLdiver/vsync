@@ -3,15 +3,15 @@ package net.mine_diver.smoothbeta.client.render;
 import net.mine_diver.smoothbeta.client.render.gl.GlUniform;
 import net.mine_diver.smoothbeta.client.render.gl.VertexBuffer;
 import net.mine_diver.smoothbeta.mixin.client.multidraw.RenderListAccessor;
-import net.minecraft.class_472;
 import net.minecraft.client.render.WorldRenderer;
+import net.minecraft.client.render.world.ChunkRenderer;
 import net.modificationstation.stationapi.api.util.math.Vec3f;
 
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RenderRegion extends class_472 {
+public class RenderRegion extends ChunkRenderer {
 
     private final RenderListAccessor _super = (RenderListAccessor) this;
     private final SmoothWorldRenderer stationWorldRenderer;
@@ -23,13 +23,13 @@ public class RenderRegion extends class_472 {
     }
 
     @Override
-    public void method_1912(int i, int j, int k, double d, double e, double f) {
-        super.method_1912(i, j, k, d, e, f);
+    public void init(int i, int j, int k, double d, double e, double f) {
+        super.init(i, j, k, d, e, f);
         buffers.clear();
     }
 
     @Override
-    public void method_1910(int i) {
+    public void addGlList(int i) {
         throw new UnsupportedOperationException("Call lists can't be added to VBO regions!");
     }
 
