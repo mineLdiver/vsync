@@ -7,11 +7,11 @@ import net.mine_diver.smoothbeta.client.render.SmoothWorldRenderer;
 import net.mine_diver.smoothbeta.client.render.VboPool;
 import net.mine_diver.smoothbeta.client.render.gl.VertexBuffer;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.class_42;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.chunk.ChunkBuilder;
+import net.minecraft.world.WorldRegion;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -69,7 +69,7 @@ class ChunkRendererMixin implements SmoothChunkRenderer {
     )
     private void smoothbeta_startRenderingTerrain(
             CallbackInfo ci,
-            int var1, int var2, int var3, int var4, int var5, int var6, HashSet<BlockEntity> var7, int var8, class_42 var9, BlockRenderManager var10, int var11
+            int var1, int var2, int var3, int var4, int var5, int var6, HashSet<BlockEntity> var7, int var8, WorldRegion var9, BlockRenderManager var10, int var11
     ) {
         smoothbeta_currentBufferIndex = var11;
         ((SmoothTessellator) tessellator).smoothbeta_startRenderingTerrain(this);
